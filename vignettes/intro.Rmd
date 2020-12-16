@@ -1,0 +1,127 @@
+---
+title: "Introduction to StatComp20067"
+author: "By 20067"
+date: "2020/12/16"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to StatComp20067}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Overview
+
+__StatComp20067__ is a simple R package developed for hypothesis test and interval estimation of the mean when the variance of the normal population is known or unknown. Two functions are considered, namely, _N.test_ (hypothesis Test and Interval Estimation of the Mean of Normal Population with the variance is known) and _T.test_ (hypothesis Test and Interval Estimation of the Mean of Normal Population with the variance is unknown). 
+
+## Benchmarking _N.test_ and _T.test_
+
+The source R code for _N.test_ is as follows:
+```{r,eval=FALSE}
+function(x,mu,alpha,alternative='two.side')
+{  xbar=mean(x)
+   s=sd(x)
+   n=length(x)	 
+if(alternative=='two.side') 
+{
+  N=qt(alpha/2,df=n-1) 
+  lower=xbar-s/sqrt(n)*N
+  higher=xbar+s/sqrt(n)*N
+  area=c(lower,higher)
+  TS=(xbar-mu)/(s/sqrt(n)) 
+  TF='reject' 
+  if ( abs(TS)<abs(N)) 
+  {
+    TF='accept'  
+  }
+  result=list('accept_or_reject'=TF,'interval estimation'=area)
+  
+}
+if(alternative=='less')
+{
+  N=qt(alpha,df=n-1)
+  lower=xbar+s/sqrt(n)*N
+  higher=Inf 
+  area=c(lower,higher)
+  TS=(xbar-mu)/(s/sqrt(n)) 
+  TF='reject'
+  if (TS>N)
+  {
+    TF='accept'
+  }
+  result=list('accept_or_reject'=TF,'interval estimation'=area)
+  
+}
+if(alternative=='greater')
+{
+  N=-qt(alpha,df=n-1)
+  lower=-Inf
+  higher=xbar-s/sqrt(n)*N
+  area=c(lower,higher)
+  TS=(xbar-mu)/(s/sqrt(n))
+  TF='reject'
+  if (TS<N)
+  {
+    TF='accept'
+  }
+  result=list('accept_or_reject'=TF,'interval estimation'=area)
+}
+return(result)
+}
+```
+
+The above code is designed for hypothesis test and interval estimation of the mean when the variance of the normal population is known using R.Under this circumstance,it required using normal test.On the other hand,the following _T.test_ code is designed for hypothesis test and interval estimation of the mean when the variance of the normal population is unknown using R.
+
+```{r,eval=FALSE}
+function(x,mu,alpha,alternative='two.side')
+{  xbar=mean(x)
+   s=sd(x)
+   n=length(x)	 
+if(alternative=='two.side') 
+{
+  N=qt(alpha/2,df=n-1) 
+  lower=xbar-s/sqrt(n)*N
+  higher=xbar+s/sqrt(n)*N
+  area=c(lower,higher)
+  TS=(xbar-mu)/(s/sqrt(n)) 
+  TF='reject' 
+  if ( abs(TS)<abs(N)) 
+  {
+    TF='accept'  
+  }
+  result=list('accept_or_reject'=TF,'interval estimation'=area)
+  
+}
+if(alternative=='less')
+{
+  N=qt(alpha,df=n-1)
+  lower=xbar+s/sqrt(n)*N
+  higher=Inf 
+  area=c(lower,higher)
+  TS=(xbar-mu)/(s/sqrt(n)) 
+  TF='reject'
+  if (TS>N)
+  {
+    TF='accept'
+  }
+  result=list('accept_or_reject'=TF,'interval estimation'=area)
+  
+}
+if(alternative=='greater')
+{
+  N=-qt(alpha,df=n-1)
+  lower=-Inf
+  higher=xbar-s/sqrt(n)*N
+  area=c(lower,higher)
+  TS=(xbar-mu)/(s/sqrt(n))
+  TF='reject'
+  if (TS<N)
+  {
+    TF='accept'
+  }
+  result=list('accept_or_reject'=TF,'interval estimation'=area)
+}
+return(result)
+}
+```
+
+In this case,student test is needed.

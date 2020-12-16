@@ -1,0 +1,17 @@
+Package: StatComp20067
+Type: Package
+Title: Some functions used in hypothesis test and confidence interval for the mean of a normal population
+Version: 1.0
+Date: 2020-12-15
+Author: Tao Xu
+Maintainer: Tao Xu <xutao1996@mail.ustc.edu.cn>
+Description: Functions for hypothesis test and interval estimation of the mean when the variance of the normal population is known or unknown.
+License: GPL (>= 2)
+Imports: Rcpp (>= 1.0.5), microbenchmark, stats,bootstrap,boot,DAAG,RANN,energy,GeneralizedHyperbolic,Ball
+LinkingTo: Rcpp
+Encoding: UTF-8
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 7.1.1
+URL: http://github.com/xutao2020/StatComp20067
+BugReports: http://github.com/xutao2020/StatComp20067/issues
